@@ -28,24 +28,18 @@ public class Main {
 
     private static void addMovies(MovieRepository repository) {
         Movie topGun = new Movie("Top Gun");
-        topGun.setReviews(Arrays.asList(
-                new Review("Niezły film!"),
-                new Review("Emocjonujące walki w powietrzu"),
-                new Review("Zawsze chciałem być pilotem...")
-        ));
+        topGun.addReview(new Review("Niezły film!"));
+        topGun.addReview(new Review("Emocjonujące walki w powietrzu"));
+        topGun.addReview(new Review("Zawsze chciałem być pilotem..."));
         repository.save(topGun);
 
         Movie goldenEye = new Movie("Golden Eye");
-        goldenEye.setReviews(Arrays.asList(
-                new Review("Najsłabszy z Bondów")
-        ));
+        goldenEye.addReview(new Review("Najsłabszy z Bondów"));
         repository.save(goldenEye);
 
         Movie mammaMia = new Movie("Mamma Mia!");
-        mammaMia.setReviews(Arrays.asList(
-                new Review("Aż chce się tańczyć"),
-                new Review("Mamma Mia! Here I go again!")
-        ));
+        mammaMia.addReview(new Review("Aż chce się tańczyć"));
+        mammaMia.addReview(new Review("Mamma Mia! Here I go again!"));
         repository.save(mammaMia);
     }
 }

@@ -11,6 +11,9 @@ public class Review {
 
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Movie movie;
+
     public Review() {
 
     }
@@ -34,4 +37,24 @@ public class Review {
     public void setContent(String name) {
         this.content = name;
     }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review )) return false;
+        return id != null && id.equals(((Review) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
 }

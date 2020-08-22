@@ -14,6 +14,7 @@ public class Movie {
     private String title;
 
     @OneToMany(
+            mappedBy = "movie",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER
@@ -50,5 +51,15 @@ public class Movie {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setMovie(this);
+    }
+
+    public void removeReview(Review review) {
+        reviews.remove(review);
+        review.setMovie(null);
     }
 }
