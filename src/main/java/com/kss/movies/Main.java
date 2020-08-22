@@ -19,8 +19,9 @@ public class Main {
         System.out.println("Found following movies:");
         movies.forEach(m -> System.out.println(m.getTitle()));
 
-        Movie someMovie = movies.get(0);
-        someMovie.getReviews().forEach(r -> System.out.println(r.getContent()));
+        Movie topGun = movies.stream().filter(m -> "Top Gun".equals(m.getTitle())).findFirst().get();
+        System.out.println("Reviews for Top Gun:");
+        topGun.getReviews().forEach(r -> System.out.println(r.getContent()));
 
         HibernateConnector.shutdown();
     }
