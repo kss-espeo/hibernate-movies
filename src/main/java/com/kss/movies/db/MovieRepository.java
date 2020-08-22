@@ -78,37 +78,6 @@ public class MovieRepository {
         return result;
     }
 
-    public Review readReview(String content) {
-        Review result = null;
-
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateConnector.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-
-            Query query = session.createQuery("FROM Review WHERE content=:content");
-            query.setParameter("content", content);
-            List reviews = query.getResultList();
-            if (reviews.size() > 0) {
-                result = (Review) reviews.get(0);
-            }
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-
-        return result;
-    }
-
     public List<Movie> readAll() {
         List<Movie> result = new ArrayList<>();
 
