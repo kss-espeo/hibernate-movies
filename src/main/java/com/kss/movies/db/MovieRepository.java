@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class MovieRepository {
     public void save(Movie movie) {
@@ -21,10 +22,12 @@ public class MovieRepository {
             Movie existingMovieWithSameTitle = read(movie.getTitle());
             if (existingMovieWithSameTitle != null) {
                 movie.setId(existingMovieWithSameTitle.getId());
-                for (Review review: movie.getReviews()) {
-                    Review existingReview = readReview(review.getContent());
-                    if (existingReview != null) {
-                        review.setId(existingReview.getId());
+                for (Review existingReview: existingMovieWithSameTitle.getReviews()) {
+                    Optional<Review> newReview = movie.getReviews().stream().filter(r -> r.getContent().equals(existingReview.getContent())).findFirst();
+                    if (newReview.isPresent()) {
+                        newReview.get().setId(existingReview.getId());
+                    } else {
+                        session.delete(existingReview);
                     }
                 }
             }
