@@ -29,8 +29,9 @@ public class Main {
     private static void addMovies(MovieRepository repository) {
         Movie topGun = new Movie("Top Gun");
         topGun.setReviews(Arrays.asList(
-                new Review("Rewelacyjny film!"),
-                new Review("Emocjonujące walki w powietrzu")
+                new Review("Niezły film!"),
+                new Review("Emocjonujące walki w powietrzu"),
+                new Review("Zawsze chciałem być pilotem...")
         ));
         repository.save(topGun);
 
