@@ -14,8 +14,6 @@ public class Main {
 
         addMovies(repository);
 
-        repository.delete("Golden Eye");
-
         List<Movie> movies = repository.readAll();
 
         System.out.println("Found following movies:");

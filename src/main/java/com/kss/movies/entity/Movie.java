@@ -7,10 +7,10 @@ import java.util.List;
 @Entity(name = "Movie")
 @Table(name = "movie")
 public class Movie {
-    @Id
-    @GeneratedValue
+    @Column(insertable = false, updatable = false, columnDefinition="serial")
     private Integer id;
 
+    @Id
     private String title;
 
     @OneToMany(

@@ -19,19 +19,6 @@ public class MovieRepository {
             session = HibernateConnector.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            Movie existingMovieWithSameTitle = read(movie.getTitle());
-            if (existingMovieWithSameTitle != null) {
-                movie.setId(existingMovieWithSameTitle.getId());
-                for (Review existingReview: existingMovieWithSameTitle.getReviews()) {
-                    Optional<Review> newReview = movie.getReviews().stream().filter(r -> r.getContent().equals(existingReview.getContent())).findFirst();
-                    if (newReview.isPresent()) {
-                        newReview.get().setId(existingReview.getId());
-                    } else {
-                        session.delete(existingReview);
-                    }
-                }
-            }
-
             session.saveOrUpdate(movie);
 
             transaction.commit();
@@ -39,7 +26,6 @@ public class MovieRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
         } finally {
             if (session != null) {
                 session.close();
@@ -114,8 +100,7 @@ public class MovieRepository {
             session = HibernateConnector.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            Movie existingMovieWithSameTitle = read(title);
-            session.delete(existingMovieWithSameTitle);
+            session.delete(new Movie(title));
 
             transaction.commit();
         } catch (Exception e) {
